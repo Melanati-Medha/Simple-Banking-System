@@ -1,0 +1,190 @@
+ simple banking system project in Java:
+
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Account {
+    private String accountNumber;
+    private String accountHolderName;
+    private double balance;
+
+    public Account(String accountNumber, String accountHolderName, double balance) {
+        this.accountNumber = accountNumber;
+        this.accountHolderName = accountHolderName;
+        this.balance = balance;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public String getAccountHolderName() {
+        return accountHolderName;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void deposit(double amount) {
+        balance += amount;
+    }
+
+    public void withdraw(double amount) {
+        if (balance >= amount) {
+            balance -= amount;
+        } else {
+            System.out.println("Insufficient balance!");
+        }
+    }
+}
+
+public class BankingSystem {
+    private static ArrayList<Account> accounts = new ArrayList<>();
+    private static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        while (true) {
+            System.out.println("Simple Banking System");
+            System.out.println("1. Create Account");
+            System.out.println("2. Deposit");
+            System.out.println("3. Withdraw");
+            System.out.println("4. Check Balance");
+            System.out.println("5. Exit");
+
+            System.out.print("Enter choice: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline left-over
+
+            switch (choice) {
+                case 1:
+                    createAccount();
+                    break;
+                case 2:
+                    deposit();
+                    break;
+                case 3:
+                    withdraw();
+                    break;
+                case 4:
+                    checkBalance();
+                    break;
+                case 5:
+                    System.out.println("Exiting...");
+                    return;
+                default:
+                    System.out.println("Invalid choice!");
+            }
+        }
+    }
+
+    private static void createAccount() {
+        System.out.print("Enter account number: ");
+        String accountNumber = scanner.nextLine();
+        System.out.print("Enter account holder name: ");
+        String accountHolderName = scanner.nextLine();
+        System.out.print("Enter initial balance: ");
+        double balance = scanner.nextDouble();
+        scanner.nextLine(); // Consume newline left-over
+
+        Account account = new Account(accountNumber, accountHolderName, balance);
+        accounts.add(account);
+        System.out.println("Account created successfully!");
+    }
+
+    private static void deposit() {
+        System.out.print("Enter account number: ");
+        String accountNumber = scanner.nextLine();
+        System.out.print("Enter amount to deposit: ");
+        double amount = scanner.nextDouble();
+        scanner.nextLine(); // Consume newline left-over
+
+        for (Account account : accounts) {
+            if (account.getAccountNumber().equals(accountNumber)) {
+                account.deposit(amount);
+                System.out.println("Deposit successful!");
+                return;
+            }
+        }
+        System.out.println("Account not found!");
+    }
+
+    private static void withdraw() {
+        System.out.print("Enter account number: ");
+        String accountNumber = scanner.nextLine();
+        System.out.print("Enter amount to withdraw: ");
+        double amount = scanner.nextDouble();
+        scanner.nextLine(); // Consume newline left-over
+
+        for (Account account : accounts) {
+            if (account.getAccountNumber().equals(accountNumber)) {
+                account.withdraw(amount);
+                System.out.println("Withdrawal successful!");
+                return;
+            }
+        }
+        System.out.println("Account not found!");
+    }
+
+    private static void checkBalance() {
+        System.out.print("Enter account number: ");
+        String accountNumber = scanner.nextLine();
+
+        for (Account account : accounts) {
+            if (account.getAccountNumber().equals(accountNumber)) {
+                System.out.println("Balance: " + account.getBalance());
+                return;
+            }
+        }
+        System.out.println("Account not found!");
+    }
+}
+
+
+Features:
+
+1. Create account
+2. Deposit money
+3. Withdraw money
+4. Check balance
+5. Exit
+
+How to run:
+
+1. Save the code in a file named BankingSystem.java.
+2. Compile the code using javac BankingSystem.java.
+3. Run the program using java BankingSystem.
+
+Example usage:
+
+Simple Banking System
+1. Create Account
+2. Deposit
+3. Withdraw
+4. Check Balance
+5. Exit
+Enter choice: 1
+Enter account number: 12345
+Enter account holder name: John Doe
+Enter initial balance: 1000
+Account created successfully!
+
+Simple Banking System
+1. Create Account
+2. Deposit
+3. Withdraw
+4. Check Balance
+5. Exit
+Enter choice: 2
+Enter account number: 12345
+Enter amount to deposit: 500
+Deposit successful!
+
+Simple Banking System
+1. Create Account
+2. Deposit
+3. Withdraw
+4. Check Balance
+5. Exit
+Enter choice: 4
